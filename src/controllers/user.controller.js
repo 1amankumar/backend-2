@@ -177,7 +177,7 @@ const refreshAccessToken=asyncHandler(async(req,res)=>{
          process.env.REFRESH_TOKEN_SECRET
       )
    
-      const user=User.findById(decodedToken?._id)
+      const user=await User.findById(decodedToken?._id)
       if(!user)
       {
          throw new ApiError(401,"Invalid Refresh Token")
@@ -228,7 +228,7 @@ const changeCurrentPassword=asyncHandler(async(req,res)=>{
 
 const getCurrentUser=asyncHandler(async(req,res)=>{
    return res.status(200)
-   .json(200,req.user,"current user fetched successfully")
+   .json(new ApiResponse(200,req.user,"current user fetched successfully"))
 })
 
 const updateAccountDetails=asyncHandler(async(req,res)=>{
